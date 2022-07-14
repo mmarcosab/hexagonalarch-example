@@ -26,4 +26,9 @@ public class DomainAnimalService implements AnimalService {
         return animal.getId();
     }
 
+    @Override
+    public void deleteAnimalById(Integer id){
+        animalRepository.deledeAnimalById(id);
+    }
+
 }

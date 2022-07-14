@@ -7,4 +7,5 @@ import java.util.Optional;
 public interface AnimalRepository {
     Optional<Animal> findById(Integer id);
     void save(Animal animal);
+    void deledeAnimalById(Integer id);
 }
