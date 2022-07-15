@@ -2,11 +2,12 @@ package com.hexagonalarch.app.domain;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.UUID;
 
 
 public class Animal {
 
-    private Integer id;
+    private UUID id;
     private String name;
     private LocalDate birthDate;
     private String breed;
@@ -19,6 +20,7 @@ public class Animal {
 
     public Animal(String name, LocalDate birthDate, String breed, String color, String kind) throws Exception {
         validate(name, birthDate, breed, color, kind);
+        this.id = UUID.randomUUID();
         this.name = name;
         this.birthDate = birthDate;
         this.breed = breed;
@@ -70,7 +72,7 @@ public class Animal {
         return kind;
     }
 
-    public Integer getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -94,8 +96,9 @@ public class Animal {
 
     @Override
     public String toString() {
-        return "CommonAnimal{" +
-                "name='" + name + '\'' +
+        return "Animal{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", birthDate=" + birthDate +
                 ", breed='" + breed + '\'' +
                 ", color='" + color + '\'' +
@@ -107,13 +110,13 @@ public class Animal {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Animal that = (Animal) o;
-        return Objects.equals(name, that.name) && Objects.equals(birthDate, that.birthDate) && Objects.equals(breed, that.breed) && Objects.equals(color, that.color) && Objects.equals(kind, that.kind);
+        Animal animal = (Animal) o;
+        return Objects.equals(id, animal.id) && Objects.equals(name, animal.name) && Objects.equals(birthDate, animal.birthDate) && Objects.equals(breed, animal.breed) && Objects.equals(color, animal.color) && Objects.equals(kind, animal.kind);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, birthDate, breed, color, kind);
+        return Objects.hash(id, name, birthDate, breed, color, kind);
     }
 
 }

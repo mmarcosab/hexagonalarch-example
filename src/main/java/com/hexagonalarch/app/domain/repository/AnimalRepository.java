@@ -2,10 +2,11 @@ package com.hexagonalarch.app.domain.repository;
 
 import com.hexagonalarch.app.domain.Animal;
 import java.util.Optional;
+import java.util.UUID;
 
 
 public interface AnimalRepository {
-    Optional<Animal> findById(Integer id);
+    Optional<Animal> findById(UUID id);
     void save(Animal animal);
-    void deledeAnimalById(Integer id);
+    void deledeAnimalById(UUID id);
 }
