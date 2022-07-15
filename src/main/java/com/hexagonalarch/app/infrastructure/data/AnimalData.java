@@ -1,16 +1,19 @@
 package com.hexagonalarch.app.infrastructure.data;
 
-
-import org.springframework.data.mongodb.core.mapping.Document;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Document("animals")
+@Entity(name = "animal")
 public class AnimalData {
+
     @Id
-    private UUID id;
+    @Column( name = "id", columnDefinition = "varchar(36)" )
+    private String id;
     private String name;
+    @Column(name = "birth_date")
     private LocalDate birthDate;
     private String breed;
     private String color;
@@ -20,7 +23,7 @@ public class AnimalData {
     }
 
     public AnimalData(UUID id, String name, LocalDate birthDate, String breed, String color, String kind) {
-        this.id = id;
+        this.id = id.toString();
         this.name = name;
         this.birthDate = birthDate;
         this.breed = breed;
@@ -29,7 +32,7 @@ public class AnimalData {
     }
 
     public UUID getId() {
-        return id;
+        return UUID.fromString(id);
     }
 
     public String getName() {
@@ -53,7 +56,7 @@ public class AnimalData {
     }
 
     public void setId(UUID id) {
-        this.id = id;
+        this.id = id.toString();
     }
 
     public void setName(String name) {

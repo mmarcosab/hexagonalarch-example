@@ -10,21 +10,20 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Component
-public class MongoDBAnimalRepository implements AnimalRepository {
+public class MySqlDBAnimalRepository implements AnimalRepository {
 
     private final SpringDataAnimalRepository springDataAnimalRepository;
     private final ModelMapper modelMapper;
 
-    public MongoDBAnimalRepository(SpringDataAnimalRepository springDataAnimalRepository) {
+    public MySqlDBAnimalRepository(SpringDataAnimalRepository springDataAnimalRepository) {
         this.springDataAnimalRepository = springDataAnimalRepository;
         this.modelMapper = new ModelMapper();
         this.modelMapper.getConfiguration().setFieldMatchingEnabled(true).setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE);
-
     }
 
     @Override
     public Optional<Animal> findById(UUID id) {
-        var animalData = springDataAnimalRepository.findById(id);
+        var animalData = springDataAnimalRepository.findById(id.toString());
         if(animalData.isEmpty())
             return Optional.empty();
         var domainAnimal = modelMapper.map(animalData.get(), Animal.class);
@@ -40,7 +39,7 @@ public class MongoDBAnimalRepository implements AnimalRepository {
 
     @Override
     public void deledeAnimalById(UUID id) {
-        springDataAnimalRepository.deleteById(id);
+        springDataAnimalRepository.deleteById(id.toString());
     }
 
 }
