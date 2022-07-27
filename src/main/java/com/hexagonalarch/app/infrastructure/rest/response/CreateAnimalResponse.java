@@ -1,4 +1,4 @@
-package com.hexagonalarch.app.application.response;
+package com.hexagonalarch.app.infrastructure.rest.response;
 
 import java.time.LocalDate;
 import java.util.UUID;

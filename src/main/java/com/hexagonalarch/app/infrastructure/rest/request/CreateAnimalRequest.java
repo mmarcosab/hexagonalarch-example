@@ -1,4 +1,4 @@
-package com.hexagonalarch.app.application.request;
+package com.hexagonalarch.app.infrastructure.rest.request;
 
 import java.time.LocalDate;
 

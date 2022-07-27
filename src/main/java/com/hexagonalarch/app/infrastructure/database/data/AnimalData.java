@@ -1,4 +1,4 @@
-package com.hexagonalarch.app.infrastructure.data;
+package com.hexagonalarch.app.infrastructure.database.data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
