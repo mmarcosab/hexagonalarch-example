@@ -1,7 +1,7 @@
-package com.hexagonalarch.app.application.controller;
+package com.hexagonalarch.app.infrastructure.rest.controller;
 
-import com.hexagonalarch.app.application.request.CreateAnimalRequest;
-import com.hexagonalarch.app.application.response.CreateAnimalResponse;
+import com.hexagonalarch.app.infrastructure.rest.request.CreateAnimalRequest;
+import com.hexagonalarch.app.infrastructure.rest.response.CreateAnimalResponse;
 import com.hexagonalarch.app.domain.Animal;
 import com.hexagonalarch.app.domain.service.AnimalService;
 import org.modelmapper.ModelMapper;

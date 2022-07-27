@@ -1,10 +1,14 @@
-package com.hexagonalarch.app.application.response;
+package com.hexagonalarch.app.infrastructure.database.data;
 
+
+import org.springframework.data.mongodb.core.mapping.Document;
+import javax.persistence.Id;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public class CreateAnimalResponse {
-
+@Document("animals")
+public class AnimalData {
+    @Id
     private UUID id;
     private String name;
     private LocalDate birthDate;
@@ -12,16 +16,16 @@ public class CreateAnimalResponse {
     private String color;
     private String kind;
 
-    public CreateAnimalResponse(UUID id, String name, LocalDate birthDate, String breed, String color, String kind) {
+    public AnimalData() {
+    }
+
+    public AnimalData(UUID id, String name, LocalDate birthDate, String breed, String color, String kind) {
         this.id = id;
         this.name = name;
         this.birthDate = birthDate;
         this.breed = breed;
         this.color = color;
         this.kind = kind;
-    }
-
-    public CreateAnimalResponse() {
     }
 
     public UUID getId() {

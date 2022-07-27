@@ -18,8 +18,7 @@ public class DomainAnimalService implements AnimalService {
 
     @Override
     public Optional<Animal> findById(UUID id) {
-        var animal = animalRepository.findById(id);
-        return animal;
+        return animalRepository.findById(id);
     }
 
     @Override
