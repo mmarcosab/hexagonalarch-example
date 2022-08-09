@@ -1,5 +1,7 @@
 package com.hexagonalarch.app.infrastructure.rest.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -7,6 +9,7 @@ public class CreateAnimalResponse {
 
     private UUID id;
     private String name;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
     private String breed;
     private String color;
@@ -70,5 +73,17 @@ public class CreateAnimalResponse {
 
     public void setKind(String kind) {
         this.kind = kind;
+    }
+
+    @Override
+    public String toString() {
+        return "{ " +
+                "id:" + id +
+                ", name:'" + name + '\'' +
+                ", birthDate:" + birthDate +
+                ", breed:'" + breed + '\'' +
+                ", color:'" + color + '\'' +
+                ", kind:'" + kind + '\'' +
+                '}';
     }
 }

@@ -1,10 +1,12 @@
 package com.hexagonalarch.app.infrastructure.rest.controller;
 
+import com.hexagonalarch.app.infrastructure.qrcode.AnimalQrCode;
 import com.hexagonalarch.app.infrastructure.rest.request.CreateAnimalRequest;
 import com.hexagonalarch.app.infrastructure.rest.response.CreateAnimalResponse;
 import com.hexagonalarch.app.domain.Animal;
 import com.hexagonalarch.app.domain.service.AnimalService;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,6 +45,15 @@ public class AnimalController {
     public ResponseEntity<?> deleteAnimalById(@PathVariable String id){
         animalService.deleteAnimalById(UUID.fromString(id));
         return ResponseEntity.noContent().build();
+    }
+
+
+    @GetMapping(value = "/{id}/qrcode", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<?> findAnimalQrCodeById(@PathVariable String id) throws Exception {
+        var animalOptional = animalService.findById(UUID.fromString(id));
+        if(animalOptional.isEmpty())
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(AnimalQrCode.generateQRCodeImage(animalOptional.get()));
     }
 
 }
