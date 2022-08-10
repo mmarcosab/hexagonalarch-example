@@ -1,5 +1,7 @@
 package com.hexagonalarch.app.infrastructure.rest.controller;
 
+import com.hexagonalarch.app.infrastructure.events.EventPublisher;
+import com.hexagonalarch.app.infrastructure.events.LogSpringEvent;
 import com.hexagonalarch.app.infrastructure.qrcode.AnimalQrCode;
 import com.hexagonalarch.app.infrastructure.rest.request.CreateAnimalRequest;
 import com.hexagonalarch.app.infrastructure.rest.response.CreateAnimalResponse;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @RestController
@@ -19,9 +22,11 @@ public class AnimalController {
 
     private final AnimalService animalService;
     private final ModelMapper modelMapper;
+    private final EventPublisher eventPublisher;
 
-    public AnimalController(AnimalService animalService) {
+    public AnimalController(AnimalService animalService, EventPublisher eventPublisher) {
         this.animalService = animalService;
+        this.eventPublisher = eventPublisher;
         this.modelMapper = new ModelMapper();
     }
 
@@ -30,6 +35,15 @@ public class AnimalController {
         var domainAnimal =  new Animal(createAnimalRequest.getName(), createAnimalRequest.getBirthDate(), createAnimalRequest.getBreed(),
                 createAnimalRequest.getColor(), createAnimalRequest.getKind());
         var response = animalService.createAnimal(domainAnimal);
+        return ResponseEntity.created(URI.create("v1/animals/" + response.toString())).build();
+    }
+
+    @PostMapping("/event")
+    public ResponseEntity<?> createAnimalAsync(@RequestBody CreateAnimalRequest createAnimalRequest) throws Exception {
+        var domainAnimal =  new Animal(createAnimalRequest.getName(), createAnimalRequest.getBirthDate(), createAnimalRequest.getBreed(),
+                createAnimalRequest.getColor(), createAnimalRequest.getKind());
+        var response = animalService.createAnimal(domainAnimal);
+        eventPublisher.publish( "animal created on " + LocalDateTime.now());
         return ResponseEntity.created(URI.create("v1/animals/" + response.toString())).build();
     }
 
