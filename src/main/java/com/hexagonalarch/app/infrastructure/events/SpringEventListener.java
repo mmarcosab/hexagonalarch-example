@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class SpringEventListener /*implements ApplicationListener<LogSpringEvent>*/ {
+public class SpringEventListener {
 
     private Logger log = LoggerFactory.getLogger(SpringEventListener.class);
 
